@@ -187,6 +187,14 @@ def crop_image(image: np.ndarray, x: int, y: int, width: int, height: int) -> np
     Returns:
         잘린 이미지
     """
+    # 경계 검증
+    if x < 0 or y < 0:
+        raise ValueError("x와 y는 0 이상이어야 합니다")
+    if x + width > image.shape[1] or y + height > image.shape[0]:
+        raise ValueError("자르기 영역이 이미지 범위를 벗어납니다")
+    if width <= 0 or height <= 0:
+        raise ValueError("width와 height는 양수여야 합니다")
+    
     return image[y:y+height, x:x+width].copy()
 
 
@@ -222,10 +230,7 @@ def set_pixel_value(image: np.ndarray, x: int, y: int, value: Union[int, Tuple[i
         수정된 이미지
     """
     result = image.copy()
-    if len(image.shape) == 3:
-        result[y, x] = value
-    else:
-        result[y, x] = value
+    result[y, x] = value
     return result
 
 
@@ -241,16 +246,25 @@ def create_gradient_image(width: int, height: int, horizontal: bool = True) -> n
     Returns:
         그라디언트 이미지
     """
+    if width < 1 or height < 1:
+        raise ValueError("width와 height는 1 이상이어야 합니다")
+    
     image = np.zeros((height, width), dtype=np.uint8)
     
     if horizontal:
-        for i in range(height):
-            for j in range(width):
-                image[i, j] = int(255 * j / (width - 1))
+        if width == 1:
+            image[:, :] = 0
+        else:
+            for i in range(height):
+                for j in range(width):
+                    image[i, j] = int(255 * j / (width - 1))
     else:
-        for i in range(height):
-            for j in range(width):
-                image[i, j] = int(255 * i / (height - 1))
+        if height == 1:
+            image[:, :] = 0
+        else:
+            for i in range(height):
+                for j in range(width):
+                    image[i, j] = int(255 * i / (height - 1))
     
     return image
 
