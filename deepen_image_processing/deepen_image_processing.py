@@ -44,9 +44,6 @@ def preprocess_images(images):
     preprocessed_images = []
 
     for image in images:
-        # PIL 이미지를 OpenCV BGR형식으로 바꾸기
-        image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
-
         # 224 * 224 크기로 리사이즈
         image = cv2.resize(image, (224, 224))
 
@@ -83,7 +80,7 @@ def augment_images(images, save_path='./augmented_images'):
         cv2.imwrite(f"{save_path}/rotated_{i}.jpg", rotated)
         
         # 3. 색상 변화
-        color_changed = cv2.convertScaleAbs(image * 255, alpha=1.25, beta=30)
+        color_changed = cv2.convertScaleAbs(image, alpha=1.25, beta=30)
         cv2.imwrite(f"{save_path}/color_changed_{i}.jpg", color_changed)
         
         # 4. 채도 변화
