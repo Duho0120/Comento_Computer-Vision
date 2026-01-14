@@ -33,6 +33,14 @@ https://huggingface.co/datasets/ethz/food101
 
 <img width="1769" height="651" alt="image" src="https://github.com/user-attachments/assets/a30b54bc-e793-4d80-8aa8-12787ab8b5d1" />
 
+## 피드백 반영
+
+1. 브랜치명 변경 - (어떤 업무인지 확인 가능)
+2. 폴더 구조 변경 (task1, task2, ...)
+3. 2차 업무부터 src, data, test 로 나누어서 진행하겠습니다.
+
+- **2차 세션 후 최종 변경사항 master로 병합 예정**
+
 ---
 
 # 2차 업무
